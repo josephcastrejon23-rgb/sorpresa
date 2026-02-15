@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para mi Zarelly ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500;700&family=Playfair+Display:ital,wght@0,400;1,600&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent: #ff4d6d;
             --bg: #fff5f7;
             --text: #590d22;
+            --glass: rgba(255, 255, 255, 0.9);
         }
 
         body {
@@ -17,92 +18,123 @@
             font-family: 'Quicksand', sans-serif;
             background: var(--bg);
             color: var(--text);
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* Fondo decorativo con corazones */
+        /* Fondo */
         .bg-decor {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0;
-            pointer-events: none;
+            z-index: -1;
             background-image: url('https://www.transparenttextures.com/patterns/heart.png');
             opacity: 0.1;
         }
 
-        .main-container {
-            width: 95%;
+        /* Estructura de Secciones */
+        .section {
+            display: none;
+            padding: 40px 20px;
             max-width: 900px;
-            z-index: 10;
-            padding: 20px;
-            text-align: center;
+            margin: 0 auto;
+            animation: fadeIn 0.8s ease-in-out;
         }
 
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--accent); margin: 0; }
+        .active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home Dashboard */
+        .main-container { text-align: center; padding-top: 50px; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--accent); margin-bottom: 5px; }
         .sub { font-size: 1rem; opacity: 0.7; letter-spacing: 2px; margin-bottom: 30px; }
 
-        /* Dashboard Grid */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px;
-            margin-bottom: 30px;
+            margin-top: 20px;
         }
 
         .btn-dash {
             background: white;
-            padding: 15px;
-            border-radius: 15px;
+            padding: 20px;
+            border-radius: 20px;
             border: 1px solid #ffccd5;
             cursor: pointer;
             transition: 0.3s;
+            font-weight: 700;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            font-weight: 600;
         }
-        .btn-dash:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 20px rgba(255, 77, 109, 0.2); }
+        .btn-dash:hover { transform: translateY(-5px); border-color: var(--accent); color: var(--accent); }
 
-        /* Contenedores de contenido (Igual a la imagen) */
-        .content-flex {
+        /* Estilos de Contenido */
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* Sección Recuerdos */
+        .featured-photo {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
-            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
         }
+        .featured-photo img { width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .featured-text { flex: 1; min-width: 280px; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-style: italic; }
 
-        .box {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            flex: 1;
-            min-width: 320px;
-            text-align: left;
-        }
-
-        h3 { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 0; font-size: 1.2rem; }
-
-        /* Galería Polaroid */
         .polaroid-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin-top: 15px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            display: none; /* Se activa con el botón */
         }
         .polaroid {
             background: white;
-            padding: 8px 8px 15px 8px;
+            padding: 10px 10px 20px 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transform: rotate(var(--r));
-            transition: 0.3s;
+            text-align: center;
         }
-        .polaroid:hover { transform: rotate(0deg) scale(1.1); z-index: 20; }
-        .polaroid img { width: 100%; height: 100px; object-fit: cover; border-radius: 2px; }
+        .polaroid img { width: 100%; height: 120px; object-fit: cover; }
 
-        /* Lista de Música */
+        /* Cupones */
+        .coupons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .coupon {
+            border: 2px dashed var(--accent);
+            padding: 20px;
+            border-radius: 15px;
+            background: #fff0f3;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+        .coupon::before { content: '✂️'; position: absolute; top: -10px; left: 10px; background: var(--bg); }
+
+        /* Playlist */
         .song-item {
             display: flex;
             align-items: center;
@@ -110,89 +142,145 @@
             padding: 10px;
             border-bottom: 1px solid #f9f9f9;
         }
-        .song-img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
-        .song-info b { display: block; font-size: 0.9rem; }
-        .song-info span { font-size: 0.8rem; opacity: 0.6; }
+        .song-img { width: 50px; height: 50px; border-radius: 8px; }
 
-        /* Footer */
-        .footer-msg { margin-top: 20px; font-size: 0.9rem; font-style: italic; opacity: 0.7; }
+        /* Poema */
+        .poem-content {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.8;
+            text-align: center;
+            white-space: pre-line;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 <body>
 
-    <div class="bg-decor"></div>
+<div class="bg-decor"></div>
 
+<div id="home" class="section active">
     <div class="main-container">
         <h1>Para mi Zarelly ❤️</h1>
-        <p class="sub">Un rincón de nuestro amor</p>
-
+        <p class="sub">NUESTRO MUNDO DIGITAL</p>
         <div class="dashboard-grid">
-            <div class="btn-dash">📸 Nuestros recuerdos</div>
-            <div class="btn-dash">🎵 Playlist</div>
-            <div class="btn-dash">✍️ Carta</div>
-            <div class="btn-dash">🎁 Cupones</div>
+            <div class="btn-dash" onclick="showSection('recuerdos')">📸 Recuerdos</div>
+            <div class="btn-dash" onclick="showSection('playlist')">🎵 Playlist</div>
+            <div class="btn-dash" onclick="showSection('carta')">✍️ Carta</div>
+            <div class="btn-dash" onclick="showSection('cupones')">🎁 Cupones</div>
         </div>
+        <p style="margin-top: 50px; font-style: italic; opacity: 0.6;">Toca cualquier opción para explorar...</p>
+    </div>
+</div>
 
-        <div class="content-flex">
-            <div class="box">
-                <h3>Moments Inolvidables</h3>
-                <div class="polaroid-grid">
-                    <div class="polaroid" style="--r: -3deg"><img src="TU_FOTO_1.jpg"></div>
-                    <div class="polaroid" style="--r: 2deg"><img src="TU_FOTO_2.jpg"></div>
-                    <div class="polaroid" style="--r: -1deg"><img src="TU_FOTO_3.jpg"></div>
-                    <div class="polaroid" style="--r: 3deg"><img src="TU_FOTO_4.jpg"></div>
-                    <div class="polaroid" style="--r: -2deg"><img src="TU_FOTO_5.jpg"></div>
-                    <div class="polaroid" style="--r: 1deg"><img src="TU_FOTO_6.jpg"></div>
-                </div>
-                <p class="footer-msg">Escrito con todo mi amor por José</p>
+<div id="recuerdos" class="section">
+    <button class="btn-back" onclick="showSection('home')">← Volver</button>
+    <div class="card">
+        <h3>Nuestro Primer San Valentín</h3>
+        <div class="featured-photo">
+            <img src="https://files.fm/f/3psjfmwtjm" alt="Nosotros">
+            <div class="featured-text">
+                "Zarelly, este primer San Valentín a tu lado es solo el inicio de una historia eterna. Gracias por cada sonrisa y por hacer que cada día normal se sienta extraordinario. Te amo hoy y siempre."
             </div>
-
-            <div class="box">
-                <h3>Nuestra Playlist</h3>
-                <div class="song-item">
-                    <img src="https://images.genius.com/1283c70659103e5c947d1012354c462e.1000x1000x1.jpg" class="song-img">
-                    <div class="song-info"><b>Pretty</b><span>JVKE</span></div>
-                </div>
-                <div class="song-item">
-                    <img src="https://m.media-amazon.com/images/I/71Y07pS5VFL._UF1000,1000_QL80_.jpg" class="song-img">
-                    <div class="song-info"><b>Tu falta de querer</b><span>Mon Laferte</span></div>
-                </div>
-                <div class="song-item">
-                    <img src="https://m.media-amazon.com/images/I/81E6O-E-8LL._UF1000,1000_QL80_.jpg" class="song-img">
-                    <div class="song-info"><b>Cómo te atreves</b><span>Morat</span></div>
-                </div>
-                <div class="song-item">
-                    <img src="https://m.media-amazon.com/images/I/71Y07pS5VFL._UF1000,1000_QL80_.jpg" class="song-img">
-                    <div class="song-info"><b>Amante para siempre</b><span>Mon Laferte</span></div>
-                </div>
-                <div class="song-item">
-                    <img src="https://m.media-amazon.com/images/I/81E6O-E-8LL._UF1000,1000_QL80_.jpg" class="song-img">
-                    <div class="song-info"><b>No se va</b><span>Morat</span></div>
-                </div>
-            </div>
+        </div>
+        <button class="btn-dash" onclick="document.getElementById('galeria-extra').style.display='grid'">Ver más fotitos ✨</button>
+        
+        <div id="galeria-extra" class="polaroid-grid">
+            <div class="polaroid" style="transform:rotate(-2deg)"><img src="FOTO1.jpg"></div>
+            <div class="polaroid" style="transform:rotate(3deg)"><img src="FOTO2.jpg"></div>
+            <div class="polaroid" style="transform:rotate(-1deg)"><img src="FOTO3.jpg"></div>
+            <div class="polaroid" style="transform:rotate(2deg)"><img src="FOTO4.jpg"></div>
+            <div class="polaroid" style="transform:rotate(-3deg)"><img src="FOTO5.jpg"></div>
+            <div class="polaroid" style="transform:rotate(1deg)"><img src="FOTO6.jpg"></div>
         </div>
     </div>
+</div>
 
-    <script>
-        // Efecto de corazones cayendo al hacer click
-        document.addEventListener('click', (e) => {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'fixed';
-            heart.style.left = e.clientX + 'px';
-            heart.style.top = e.clientY + 'px';
-            heart.style.fontSize = '20px';
-            heart.style.pointerEvents = 'none';
-            heart.style.transition = '2s';
-            document.body.appendChild(heart);
+<div id="playlist" class="section">
+    <button class="btn-back" onclick="showSection('home')">← Volver</button>
+    <div class="card">
+        <h3>Nuestra Playlist</h3>
+        <div class="song-item">
+            <img src="https://images.genius.com/1283c70659103e5c947d1012354c462e.1000x1000x1.jpg" class="song-img">
+            <div class="song-info"><b>Pretty</b><span>JVKE</span></div>
+        </div>
+        <div class="song-item">
+            <img src="https://m.media-amazon.com/images/I/71Y07pS5VFL._UF1000,1000_QL80_.jpg" class="song-img">
+            <div class="song-info"><b>Tu falta de querer</b><span>Mon Laferte</span></div>
+        </div>
+        <div class="song-item">
+            <img src="https://m.media-amazon.com/images/I/81E6O-E-8LL._UF1000,1000_QL80_.jpg" class="song-img">
+            <div class="song-info"><b>Cómo te atreves</b><span>Morat</span></div>
+        </div>
+    </div>
+</div>
 
-            setTimeout(() => {
-                heart.style.transform = `translateY(-100px) opacity(0)`;
-                heart.style.opacity = '0';
-            }, 50);
+<div id="carta" class="section">
+    <button class="btn-back" onclick="showSection('home')">← Volver</button>
+    <div class="card">
+        <h2 style="font-family:'Dancing Script'; text-align:center; color:var(--accent)">Mi Corazón en Versos</h2>
+        <div class="poem-content">
+            Zarelly, mi luz y mi guía,
+            en tus ojos encuentro mi paz cada día.
+            No importa el tiempo ni la distancia,
+            siempre me rindo ante tu fragancia.
 
-            setTimeout(() => heart.remove(), 2000);
+            Eres el verso que nunca termina,
+            la flor más bella que mi vida ilumina.
+            Prometo cuidarte, amarte y respetarte,
+            y en cada latido, volver a encontrarte.
+
+            No hace falta un motivo especial para decirte
+            que mi mundo es mejor desde que llegaste tú.
+            Gracias por ser mi enamorada, mi cómplice y mi todo.
+            
+            Te amo infinitamente,
+            Tu José.
+        </div>
+    </div>
+</div>
+
+<div id="cupones" class="section">
+    <button class="btn-back" onclick="showSection('home')">← Volver</button>
+    <h3>Tus Cupones de Amor</h3>
+    <p>Válidos para ser canjeados en cualquier momento ❤️</p>
+    <div class="coupons-grid">
+        <div class="coupon">🎟️ Vale por un Abrazo Infinito</div>
+        <div class="coupon">🎟️ Vale por un Beso de Película</div>
+        <div class="coupon">🎟️ Vale por un Bobocha</div>
+        <div class="coupon">🎟️ Vale por una Cena Especial</div>
+        <div class="coupon">🎟️ Vale por un Masajito</div>
+        <div class="coupon">🎟️ Vale por decirte "Te amo" mil veces</div>
+    </div>
+</div>
+
+<script>
+    function showSection(id) {
+        // Ocultar todas las secciones
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.remove('active');
         });
-    </script>
+        // Mostrar la seleccionada
+        document.getElementById(id).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    // Efecto de corazones al click
+    document.addEventListener('click', (e) => {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.style.position = 'fixed';
+        heart.style.left = e.clientX + 'px';
+        heart.style.top = e.clientY + 'px';
+        heart.style.fontSize = '20px';
+        heart.style.pointerEvents = 'none';
+        heart.style.transition = '2s';
+        document.body.appendChild(heart);
+        setTimeout(() => {
+            heart.style.transform = `translateY(-100px) opacity(0)`;
+        }, 50);
+        setTimeout(() => heart.remove(), 2000);
+    });
+</script>
+
 </body>
 </html>
