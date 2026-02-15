@@ -82,7 +82,7 @@
             .content-split { grid-template-columns: 1fr; }
         }
 
-        /* Mural Izquierdo - SIN RECORTAR FOTOS */
+        /* Mural Izquierdo */
         .mural-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -95,20 +95,18 @@
         .mural-item {
             width: 100%;
             height: 180px;
-            object-fit: contain; /* Esto hace que no se recorte la foto */
+            object-fit: contain;
             background: #fff;
             border-radius: 8px;
             border: 2px solid #fdf0f2;
         }
 
-        /* Lista de Canciones Derecha */
+        /* Lista de Canciones */
         .songs-list {
             background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 20px;
             border: 1px dashed var(--accent);
-            max-height: 600px;
-            overflow-y: auto;
         }
         .song-card {
             display: flex;
@@ -126,8 +124,23 @@
         .song-card:hover { transform: scale(1.02); background: #fff0f3; }
         .song-card img { width: 45px; height: 45px; border-radius: 50%; }
 
+        /* Otros Estilos */
         .card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .btn-back { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; margin-bottom: 20px; font-weight: bold; }
+
+        .polaroid-grid { 
+            display: none; 
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+            gap: 15px; 
+            margin-top: 25px; 
+        }
+        .polaroid { 
+            background: white; 
+            padding: 10px 10px 25px 10px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            text-align: center;
+        }
+        .polaroid img { width: 100%; height: 140px; object-fit: contain; background: #fafafa; }
 
         .coupons-grid {
             display: grid;
@@ -144,7 +157,7 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        .coupon:hover { background: var(--accent); color: white; transform: rotate(-2deg); }
+        .coupon:hover { background: var(--accent); color: white; }
     </style>
 </head>
 <body>
@@ -174,8 +187,7 @@
         </div>
 
         <div class="songs-list">
-            <h3 style="margin-top:0; color:var(--accent); font-family:'Dancing Script'; font-size:1.8rem;">Nuestras Melodías ✨</h3>
-            
+            <h3 style="margin-top:0; color:var(--accent); font-family:'Dancing Script'; font-size:1.8rem;">Canciones para ti ✨</h3>
             <a href="https://www.youtube.com/watch?v=GMBSruqyXuI" target="_blank" class="song-card">
                 <img src="https://images.genius.com/1283c70659103e5c947d1012354c462e.1000x1000x1.jpg">
                 <div class="song-info"><b>Pretty</b><span>JVKE</span></div>
@@ -201,11 +213,22 @@
     <div class="card">
         <h3>Nuestro Primer San Valentín</h3>
         <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-            <img src="https://fv5-5.files.fm/thumb_show.php?i=3psjfmwtjm&view&v=1" style="max-width: 300px; border-radius: 15px;">
+            <img src="https://fv5-5.files.fm/thumb_show.php?i=3psjfmwtjm&view&v=1" style="max-width: 300px; border-radius: 15px; object-fit: contain; background: #fff;">
             <div style="flex: 1; min-width: 280px; font-family: 'Playfair Display'; font-size: 1.1rem;">
-                Zarelly, amor de mi vida, este primer San Valentín es solo la primera página de un libro infinito que quiero escribir contigo. <br><br>
-                Eres la persona que ilumina mis días más grises y la que hace que los días buenos sean inolvidables. Gracias por cada sonrisa, por cada mirada y por ser mi cómplice en todo. Te amo hoy más que ayer, pero mucho menos que mañana. ❤️
+                Zarelly amor mío, este primer San Valentín a tu lado es el regalo más hermoso que la vida me ha dado. ❤️<br><br>
+                Cada momento contigo se ha convertido en mi recuerdo favorito. Eres mi paz, mi alegría y mi cómplice en todo. Gracias por elegirme cada día y por llenar mi mundo de colores que no sabía que existían. Esto es solo el comienzo de nuestra historia eterna.
             </div>
+        </div>
+        
+        <button class="btn-dash" style="margin-top:20px;" onclick="document.getElementById('galeria-extra').style.display='grid'">📸 Ver nuestra galería secreta</button>
+        
+        <div id="galeria-extra" class="polaroid-grid">
+            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=uykkzc8x9q&view&v=1"></div>
+            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=v6dma4x6na&view&v=1"></div>
+            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=5q3q3v98k4&view&v=1"></div>
+            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=zugwrnyuyb&view&v=1"></div>
+            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=cmz2kb49jw&view&v=1"></div>
+            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=td64h2uhb3&view&v=1"></div>
         </div>
     </div>
 </div>
@@ -216,12 +239,9 @@
         <h2 style="font-family:'Dancing Script'; text-align:center; color:var(--accent); font-size: 2.5rem;">Para el amor de mi vida</h2>
         <div style="font-family:'Playfair Display'; line-height:2; text-align:center; white-space:pre-line; font-size: 1.2rem;">
             Zarelly querida,
-            
-            Desde que llegaste a mi vida, todo tiene un color diferente. No sabía que se podía querer tanto a alguien hasta que te conocí. Eres mi refugio, mi mejor amiga y el amor que siempre soñé encontrar.
+            Desde que llegaste a mi vida, todo tiene un color diferente. Eres mi refugio, mi mejor amiga y el amor que siempre soñé encontrar.
 
-            Me encanta la forma en que ríes, cómo me miras y la paz que me transmites. Prometo estar a tu lado en cada paso, cuidarte, apoyarte y recordarte cada mañana lo increíble que eres. 
-
-            Eres mi sol, mi luna y todas mis estrellas. No importa lo que pase, mi corazón siempre será tuyo. Gracias por ser tú, por ser mi Zarelly.
+            Me encanta la forma en que ríes y la paz que me transmites. Prometo estar a tu lado en cada paso, cuidarte y recordarte cada mañana lo increíble que eres. Eres mi sol, mi luna y todas mis estrellas.
 
             Te amo con toda mi alma,
             - Tu José
@@ -233,13 +253,11 @@
     <button class="btn-back" onclick="showSection('home')">← Volver</button>
     <div class="card">
         <h3 style="text-align:center; font-family: 'Dancing Script'; font-size: 2rem;">Tus Cupones Mágicos</h3>
-        <p style="text-align: center; font-style: italic;">Haz clic en un cupón para canjearlo...</p>
         <div class="coupons-grid">
             <div class="coupon" onclick="canjear('un Abrazo Infinito')">🎟️ Vale por un Abrazo Infinito</div>
             <div class="coupon" onclick="canjear('un Beso de Película')">🎟️ Vale por un Beso de Película</div>
             <div class="coupon" onclick="canjear('una Cena Especial')">🎟️ Vale por una Cena Especial</div>
             <div class="coupon" onclick="canjear('un Bobocha')">🎟️ Vale por un Bobocha</div>
-            <div class="coupon" onclick="canjear('decirte Te Amo mil veces')">🎟️ Vale por decirte "Te amo" mil veces</div>
         </div>
     </div>
 </div>
@@ -252,17 +270,9 @@
     }
 
     function canjear(premio) {
-        // Efecto de fuegos artificiales
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#ff4d6d', '#ffccd5', '#ffffff']
-        });
-
-        // Mensaje personalizado
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff4d6d', '#ffffff'] });
         setTimeout(() => {
-            alert("¡FELICIDADES MI AMOR! ❤️\n\nHas canjeado vale por: " + premio + ".\n\nTus deseos son órdenes, mi amorcito. Te lo daré justo ahora o cuando tú quieras. ¡Te amo!");
+            alert("¡FELICIDADES MI AMOR! ❤️\n\nHas canjeado vale por: " + premio + ".\n\nTus deseos son órdenes, mi amorcito. Te lo daré justo ahora. ¡Te amo!");
         }, 500);
     }
 </script>
