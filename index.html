@@ -10,7 +10,6 @@
             --accent: #ff4d6d;
             --bg: #fff5f7;
             --text: #590d22;
-            --glass: rgba(255, 255, 255, 0.9);
         }
 
         body {
@@ -22,7 +21,6 @@
             overflow-x: hidden;
         }
 
-        /* Fondo */
         .bg-decor {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -31,7 +29,6 @@
             opacity: 0.1;
         }
 
-        /* Estructura de Secciones */
         .section {
             display: none;
             padding: 40px 20px;
@@ -47,16 +44,31 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Home Dashboard */
-        .main-container { text-align: center; padding-top: 50px; }
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--accent); margin-bottom: 5px; }
-        .sub { font-size: 1rem; opacity: 0.7; letter-spacing: 2px; margin-bottom: 30px; }
+        /* Mural Principal */
+        .mural-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 30px;
+            padding: 10px;
+        }
+        .mural-item {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 3px solid white;
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--accent); text-align: center; margin: 20px 0 5px 0; }
+        .sub { font-size: 1rem; opacity: 0.7; letter-spacing: 2px; text-align: center; margin-bottom: 30px; }
 
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px;
-            margin-top: 20px;
+            margin-bottom: 40px;
         }
 
         .btn-dash {
@@ -67,11 +79,11 @@
             cursor: pointer;
             transition: 0.3s;
             font-weight: 700;
+            text-align: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         .btn-dash:hover { transform: translateY(-5px); border-color: var(--accent); color: var(--accent); }
 
-        /* Estilos de Contenido */
         .card {
             background: white;
             padding: 30px;
@@ -91,7 +103,22 @@
             font-weight: bold;
         }
 
-        /* Sección Recuerdos */
+        /* Polaroid Gallery */
+        .polaroid-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            display: none; 
+        }
+        .polaroid {
+            background: white;
+            padding: 10px 10px 25px 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .polaroid img { width: 100%; height: 140px; object-fit: cover; }
+
         .featured-photo {
             display: flex;
             flex-wrap: wrap;
@@ -99,25 +126,8 @@
             align-items: center;
             margin-bottom: 30px;
         }
-        .featured-photo img { width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .featured-text { flex: 1; min-width: 280px; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-style: italic; }
+        .featured-photo img { width: 100%; max-width: 400px; border-radius: 15px; }
 
-        .polaroid-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-            display: none; /* Se activa con el botón */
-        }
-        .polaroid {
-            background: white;
-            padding: 10px 10px 20px 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        .polaroid img { width: 100%; height: 120px; object-fit: cover; }
-
-        /* Cupones */
         .coupons-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -130,27 +140,13 @@
             background: #fff0f3;
             text-align: center;
             font-weight: bold;
-            position: relative;
         }
-        .coupon::before { content: '✂️'; position: absolute; top: -10px; left: 10px; background: var(--bg); }
 
-        /* Playlist */
-        .song-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 10px;
-            border-bottom: 1px solid #f9f9f9;
-        }
-        .song-img { width: 50px; height: 50px; border-radius: 8px; }
-
-        /* Poema */
         .poem-content {
             font-family: 'Playfair Display', serif;
             line-height: 1.8;
             text-align: center;
             white-space: pre-line;
-            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -159,16 +155,22 @@
 <div class="bg-decor"></div>
 
 <div id="home" class="section active">
-    <div class="main-container">
-        <h1>Para mi Zarelly ❤️</h1>
-        <p class="sub">NUESTRO MUNDO DIGITAL</p>
-        <div class="dashboard-grid">
-            <div class="btn-dash" onclick="showSection('recuerdos')">📸 Recuerdos</div>
-            <div class="btn-dash" onclick="showSection('playlist')">🎵 Playlist</div>
-            <div class="btn-dash" onclick="showSection('carta')">✍️ Carta</div>
-            <div class="btn-dash" onclick="showSection('cupones')">🎁 Cupones</div>
-        </div>
-        <p style="margin-top: 50px; font-style: italic; opacity: 0.6;">Toca cualquier opción para explorar...</p>
+    <h1>Para mi Zarelly ❤️</h1>
+    <p class="sub">NUESTRO MUNDO DIGITAL</p>
+    
+    <div class="mural-container">
+        <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=9yudjtvjfk&view&v=1">
+        <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=effj7udp4h&view&v=1">
+        <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=rfupbjschk&view&v=1">
+        <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=tgjg7vpqmk&view&v=1">
+        <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=rhyb9js3ed&view&v=1">
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="btn-dash" onclick="showSection('recuerdos')">📸 Recuerdos</div>
+        <div class="btn-dash" onclick="showSection('playlist')">🎵 Playlist</div>
+        <div class="btn-dash" onclick="showSection('carta')">✍️ Carta</div>
+        <div class="btn-dash" onclick="showSection('cupones')">🎁 Cupones</div>
     </div>
 </div>
 
@@ -177,20 +179,21 @@
     <div class="card">
         <h3>Nuestro Primer San Valentín</h3>
         <div class="featured-photo">
-            <img src="WhatsApp Image 2026-02-14 at 8.27.45 PM.jpeg" alt="Nosotros">
-            <div class="featured-text">
-                "Zarelly, este primer San Valentín a tu lado es solo el inicio de una historia eterna. Gracias por cada sonrisa y por hacer que cada día normal se sienta extraordinario. Te amo hoy y siempre."
+            <img src="https://fv5-5.files.fm/thumb_show.php?i=3psjfmwtjm&view&v=1" alt="Foto Principal">
+            <div style="flex:1; min-width:250px; font-style:italic;">
+                "Zarelly, este primer San Valentín es el inicio de nuestra historia. Eres mi persona favorita."
             </div>
         </div>
+        
         <button class="btn-dash" onclick="document.getElementById('galeria-extra').style.display='grid'">Ver más fotitos ✨</button>
         
         <div id="galeria-extra" class="polaroid-grid">
-            <div class="polaroid" style="transform:rotate(-2deg)"><img src="WhatsApp Image 2026-02-14 at 8.27.42 PM.jpeg"></div>
-            <div class="polaroid" style="transform:rotate(3deg)"><img src="WhatsApp Image 2026-02-14 at 2.44.16 PM.jpeg"></div>
-            <div class="polaroid" style="transform:rotate(-1deg)"><img src="WhatsApp Image 2026-02-14 at 2.44.24 PM.jpeg"></div>
-            <div class="polaroid" style="transform:rotate(2deg)"><img src="WhatsApp Image 2026-02-14 at 1.55.36 PM.jpeg"></div>
-            <div class="polaroid" style="transform:rotate(-3deg)"><img src="WhatsApp Image 2026-02-14 at 1.54.57 PM.jpeg"></div>
-            <div class="polaroid" style="transform:rotate(1deg)"><img src="WhatsApp Image 2026-02-14 at 1.38.16 PM.jpeg"></div>
+            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=uykkzc8x9q&view&v=1"></div>
+            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=v6dma4x6na&view&v=1"></div>
+            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=5q3q3v98k4&view&v=1"></div>
+            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=zugwrnyuyb&view&v=1"></div>
+            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=cmz2kb49jw&view&v=1"></div>
+            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=td64h2uhb3&view&v=1"></div>
         </div>
     </div>
 </div>
@@ -199,87 +202,38 @@
     <button class="btn-back" onclick="showSection('home')">← Volver</button>
     <div class="card">
         <h3>Nuestra Playlist</h3>
-        <div class="song-item">
-            <img src="https://images.genius.com/1283c70659103e5c947d1012354c462e.1000x1000x1.jpg" class="song-img">
-            <div class="https://www.youtube.com/watch?v=GMBSruqyXuI&list=RDGMBSruqyXuI&start_radio=1"><b>Pretty</b><span>JVKE</span></div>
+        <p>Canciones que me recuerdan a ti...</p>
         </div>
-        <div class="song-item">
-            <img src="https://m.media-amazon.com/images/I/71Y07pS5VFL._UF1000,1000_QL80_.jpg" class="song-img">
-            <div class="song-info"><b>Tu falta de querer</b><span>Mon Laferte</span></div>
-        </div>
-        <div class="song-item">
-            <img src="https://m.media-amazon.com/images/I/81E6O-E-8LL._UF1000,1000_QL80_.jpg" class="song-img">
-            <div class="song-info"><b>Cómo te atreves</b><span>Morat</span></div>
-        </div>
-    </div>
 </div>
 
 <div id="carta" class="section">
     <button class="btn-back" onclick="showSection('home')">← Volver</button>
     <div class="card">
-        <h2 style="font-family:'Dancing Script'; text-align:center; color:var(--accent)">Mi Corazón en Versos</h2>
         <div class="poem-content">
-            Zarelly, mi luz y mi guía,
-            en tus ojos encuentro mi paz cada día.
-            No importa el tiempo ni la distancia,
-            siempre me rindo ante tu fragancia.
-
-            Eres el verso que nunca termina,
-            la flor más bella que mi vida ilumina.
-            Prometo cuidarte, amarte y respetarte,
-            y en cada latido, volver a encontrarte.
-
-            No hace falta un motivo especial para decirte
-            que mi mundo es mejor desde que llegaste tú.
-            Gracias por ser mi enamorada, mi cómplice y mi todo.
-            
-            Te amo infinitamente,
-            Tu José.
+            Zarelly, mi amor,
+            escribirte esto es solo una parte de lo que siento.
+            Eres mi luz cada mañana.
+            Te amo infinitamente.
+            - Tu José
         </div>
     </div>
 </div>
 
 <div id="cupones" class="section">
     <button class="btn-back" onclick="showSection('home')">← Volver</button>
-    <h3>Tus Cupones de Amor</h3>
-    <p>Válidos para ser canjeados en cualquier momento ❤️</p>
     <div class="coupons-grid">
-        <div class="coupon">🎟️ Vale por un abrazo grande grande</div>
-        <div class="coupon">🎟️ Vale por un muchos beshitos</div>
         <div class="coupon">🎟️ Vale por un Bobocha</div>
-        <div class="coupon">🎟️ Vale por lo que quieras</div>
-        <div class="coupon">🎟️ Vale por cantar una cancion</div>
-        <div class="coupon">🎟️ Vale por decirte "Te amo" mil veces</div>
+        <div class="coupon">🎟️ Vale por un Beso Infinito</div>
+        <div class="coupon">🎟️ Vale por una Cena</div>
     </div>
 </div>
 
 <script>
     function showSection(id) {
-        // Ocultar todas las secciones
-        document.querySelectorAll('.section').forEach(section => {
-            section.classList.remove('active');
-        });
-        // Mostrar la seleccionada
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         window.scrollTo(0,0);
     }
-
-    // Efecto de corazones al click
-    document.addEventListener('click', (e) => {
-        const heart = document.createElement('div');
-        heart.innerHTML = '❤️';
-        heart.style.position = 'fixed';
-        heart.style.left = e.clientX + 'px';
-        heart.style.top = e.clientY + 'px';
-        heart.style.fontSize = '20px';
-        heart.style.pointerEvents = 'none';
-        heart.style.transition = '2s';
-        document.body.appendChild(heart);
-        setTimeout(() => {
-            heart.style.transform = `translateY(-100px) opacity(0)`;
-        }, 50);
-        setTimeout(() => heart.remove(), 2000);
-    });
 </script>
 
 </body>
