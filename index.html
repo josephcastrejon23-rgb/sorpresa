@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para mi persona favorita ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Para mi Zarelly ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;500;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     <style>
         :root {
             --accent: #ff4d6d;
             --bg: #fff5f7;
             --text: #590d22;
-            --glass: rgba(255, 255, 255, 0.85);
         }
 
         body {
@@ -25,187 +24,175 @@
             overflow-x: hidden;
         }
 
-        /* Fondo de pétalos suaves */
-        .petal {
-            position: fixed;
-            top: -10%;
-            color: var(--accent);
-            opacity: 0.3;
-            animation: fall linear infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-
-        .main-container {
-            width: 90%;
-            max-width: 500px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
-            z-index: 10;
-            text-align: center;
-        }
-
-        h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; margin: 0; color: var(--accent); }
-        .subtitle { font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; }
-
-        /* Grid de Opciones */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .menu-item {
-            background: white;
-            padding: 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid #ffccd5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .menu-item:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-color: var(--accent); }
-        .menu-item span { font-size: 2rem; }
-        .menu-item b { font-size: 0.8rem; }
-
-        /* Ventanas Modales */
-        .modal {
-            display: none;
+        /* Fondo decorativo con corazones */
+        .bg-decor {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(89, 13, 34, 0.9);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
+            z-index: 0;
+            pointer-events: none;
+            background-image: url('https://www.transparenttextures.com/patterns/heart.png');
+            opacity: 0.1;
+        }
+
+        .main-container {
+            width: 95%;
+            max-width: 900px;
+            z-index: 10;
             padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 25px;
-            max-width: 400px;
-            width: 100%;
             text-align: center;
-            position: relative;
-            max-height: 80vh;
-            overflow-y: auto;
         }
 
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--accent); }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--accent); margin: 0; }
+        .sub { font-size: 1rem; opacity: 0.7; letter-spacing: 2px; margin-bottom: 30px; }
 
-        .coupon {
-            border: 2px dashed var(--accent);
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .btn-dash {
+            background: white;
             padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            background: #fff0f3;
+            border-radius: 15px;
+            border: 1px solid #ffccd5;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            font-weight: 600;
         }
+        .btn-dash:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 20px rgba(255, 77, 109, 0.2); }
+
+        /* Contenedores de contenido (Igual a la imagen) */
+        .content-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .box {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            flex: 1;
+            min-width: 320px;
+            text-align: left;
+        }
+
+        h3 { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top: 0; font-size: 1.2rem; }
+
+        /* Galería Polaroid */
+        .polaroid-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .polaroid {
+            background: white;
+            padding: 8px 8px 15px 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transform: rotate(var(--r));
+            transition: 0.3s;
+        }
+        .polaroid:hover { transform: rotate(0deg) scale(1.1); z-index: 20; }
+        .polaroid img { width: 100%; height: 100px; object-fit: cover; border-radius: 2px; }
+
+        /* Lista de Música */
+        .song-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #f9f9f9;
+        }
+        .song-img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+        .song-info b { display: block; font-size: 0.9rem; }
+        .song-info span { font-size: 0.8rem; opacity: 0.6; }
+
+        /* Footer */
+        .footer-msg { margin-top: 20px; font-size: 0.9rem; font-style: italic; opacity: 0.7; }
     </style>
 </head>
 <body>
 
+    <div class="bg-decor"></div>
+
     <div class="main-container">
-        <h1>Hola, Zarelly ❤️</h1>
-        <p class="subtitle">Tu regalo digital</p>
+        <h1>Para mi Zarelly ❤️</h1>
+        <p class="sub">Un rincón de nuestro amor</p>
 
-        <div class="menu-grid">
-            <div class="menu-item" onclick="openModal('razones')">
-                <span>✨</span>
-                <b>Razones por las que te amo</b>
-            </div>
-            <div class="menu-item" onclick="openModal('cupones')">
-                <span>🎁</span>
-                <b>Cupones Válidos</b>
-            </div>
-            <div class="menu-item" onclick="openModal('carta')">
-                <span>✉️</span>
-                <b>Carta Especial</b>
-            </div>
-            <div class="menu-item" onclick="openModal('musica')">
-                <span>🎵</span>
-                <b>Nuestra Playlist</b>
-            </div>
+        <div class="dashboard-grid">
+            <div class="btn-dash">📸 Nuestros recuerdos</div>
+            <div class="btn-dash">🎵 Playlist</div>
+            <div class="btn-dash">✍️ Carta</div>
+            <div class="btn-dash">🎁 Cupones</div>
         </div>
-        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.7;">Hecho con amor por tu novio</p>
-    </div>
 
-    <div id="modal-razones" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('razones')">&times;</span>
-            <h2 style="color:var(--accent)">Por ti...</h2>
-            <ul style="text-align:left; line-height: 1.8;">
-                <li>Por cómo me haces reír sin intentarlo.</li>
-                <li>Por tu inteligencia y tu fuerza.</li>
-                <li>Por ser mi lugar seguro en el mundo.</li>
-                <li>Porque simplemente eres tú.</li>
-            </ul>
-        </div>
-    </div>
+        <div class="content-flex">
+            <div class="box">
+                <h3>Moments Inolvidables</h3>
+                <div class="polaroid-grid">
+                    <div class="polaroid" style="--r: -3deg"><img src="TU_FOTO_1.jpg"></div>
+                    <div class="polaroid" style="--r: 2deg"><img src="TU_FOTO_2.jpg"></div>
+                    <div class="polaroid" style="--r: -1deg"><img src="TU_FOTO_3.jpg"></div>
+                    <div class="polaroid" style="--r: 3deg"><img src="TU_FOTO_4.jpg"></div>
+                    <div class="polaroid" style="--r: -2deg"><img src="TU_FOTO_5.jpg"></div>
+                    <div class="polaroid" style="--r: 1deg"><img src="TU_FOTO_6.jpg"></div>
+                </div>
+                <p class="footer-msg">Escrito con todo mi amor por José</p>
+            </div>
 
-    <div id="modal-cupones" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('cupones')">&times;</span>
-            <h2 style="color:var(--accent)">Canjea tu premio</h2>
-            <div class="coupon">🎟️ Vale por una cena donde tú elijas</div>
-            <div class="coupon">🎟️ Vale por una tarde de películas y snacks</div>
-            <div class="coupon">🎟️ Vale por un abrazo infinito</div>
-        </div>
-    </div>
-
-    <div id="modal-carta" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('carta')">&times;</span>
-            <h2 style="font-family:'Dancing Script'">Mi corazón para ti</h2>
-            <p style="line-height:1.6; text-align: justify;">
-                Zarelly, quería recordarte hoy que no necesito una fecha especial para decirte que eres lo más increíble que me ha pasado. Gracias por estar conmigo y por hacer de cada día algo maravilloso...
-            </p>
-            <p><b>Te amo siempre.</b></p>
-        </div>
-    </div>
-
-    <div id="modal-musica" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('musica')">&times;</span>
-            <h2 style="color:var(--accent)">Nuestra Playlist</h2>
-            <p>Imagina que aquí suena nuestra canción favorita...</p>
-            <div style="background: #eee; padding: 20px; border-radius: 10px;">
-                ▶️ [Tu Canción Favorita]
+            <div class="box">
+                <h3>Nuestra Playlist</h3>
+                <div class="song-item">
+                    <img src="https://images.genius.com/1283c70659103e5c947d1012354c462e.1000x1000x1.jpg" class="song-img">
+                    <div class="song-info"><b>Pretty</b><span>JVKE</span></div>
+                </div>
+                <div class="song-item">
+                    <img src="https://m.media-amazon.com/images/I/71Y07pS5VFL._UF1000,1000_QL80_.jpg" class="song-img">
+                    <div class="song-info"><b>Tu falta de querer</b><span>Mon Laferte</span></div>
+                </div>
+                <div class="song-item">
+                    <img src="https://m.media-amazon.com/images/I/81E6O-E-8LL._UF1000,1000_QL80_.jpg" class="song-img">
+                    <div class="song-info"><b>Cómo te atreves</b><span>Morat</span></div>
+                </div>
+                <div class="song-item">
+                    <img src="https://m.media-amazon.com/images/I/71Y07pS5VFL._UF1000,1000_QL80_.jpg" class="song-img">
+                    <div class="song-info"><b>Amante para siempre</b><span>Mon Laferte</span></div>
+                </div>
+                <div class="song-item">
+                    <img src="https://m.media-amazon.com/images/I/81E6O-E-8LL._UF1000,1000_QL80_.jpg" class="song-img">
+                    <div class="song-info"><b>No se va</b><span>Morat</span></div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Pétalos cayendo
-        setInterval(() => {
-            const p = document.createElement('div');
-            p.classList.add('petal');
-            p.innerHTML = '🌸';
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.fontSize = Math.random() * 20 + 10 + 'px';
-            p.style.animationDuration = Math.random() * 3 + 2 + 's';
-            document.body.appendChild(p);
-            setTimeout(() => p.remove(), 5000);
-        }, 500);
+        // Efecto de corazones cayendo al hacer click
+        document.addEventListener('click', (e) => {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            heart.style.fontSize = '20px';
+            heart.style.pointerEvents = 'none';
+            heart.style.transition = '2s';
+            document.body.appendChild(heart);
 
-        function openModal(id) { document.getElementById('modal-' + id).style.display = 'flex'; }
-        function closeModal(id) { document.getElementById('modal-' + id).style.display = 'none'; }
-        
-        // Cerrar al hacer clic fuera
-        window.onclick = function(event) {
-            if (event.target.className === 'modal') {
-                event.target.style.display = 'none';
-            }
-        }
+            setTimeout(() => {
+                heart.style.transform = `translateY(-100px) opacity(0)`;
+                heart.style.opacity = '0';
+            }, 50);
+
+            setTimeout(() => heart.remove(), 2000);
+        });
     </script>
 </body>
 </html>
