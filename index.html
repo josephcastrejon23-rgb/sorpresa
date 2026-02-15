@@ -70,7 +70,6 @@
         }
         .btn-dash:hover { transform: translateY(-5px); border-color: var(--accent); color: var(--accent); }
 
-        /* Contenedor Mural + Canciones */
         .content-split {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
@@ -82,7 +81,7 @@
             .content-split { grid-template-columns: 1fr; }
         }
 
-        /* Mural Izquierdo */
+        /* Mural */
         .mural-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -99,14 +98,19 @@
             background: #fff;
             border-radius: 8px;
             border: 2px solid #fdf0f2;
+            cursor: zoom-in;
+            transition: 0.3s;
         }
+        .mural-item:hover { transform: scale(1.03); }
 
-        /* Lista de Canciones */
+        /* Lista de Canciones Actualizada */
         .songs-list {
             background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 20px;
             border: 1px dashed var(--accent);
+            max-height: 600px;
+            overflow-y: auto;
         }
         .song-card {
             display: flex;
@@ -122,12 +126,11 @@
             border: 1px solid #fff0f3;
         }
         .song-card:hover { transform: scale(1.02); background: #fff0f3; }
-        .song-card img { width: 45px; height: 45px; border-radius: 50%; }
+        .song-card img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+        .song-info b { font-size: 0.85rem; display: block; }
+        .song-info span { font-size: 0.75rem; opacity: 0.7; }
 
-        /* Otros Estilos */
-        .card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .btn-back { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; margin-bottom: 20px; font-weight: bold; }
-
+        /* Polaroid y Galería */
         .polaroid-grid { 
             display: none; 
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
@@ -138,9 +141,25 @@
             background: white; 
             padding: 10px 10px 25px 10px; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-            text-align: center;
+            cursor: zoom-in;
         }
         .polaroid img { width: 100%; height: 140px; object-fit: contain; background: #fafafa; }
+
+        /* Pantalla Completa (Lightbox) */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+        #lightbox img { max-width: 90%; max-height: 90%; border-radius: 10px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+
+        .card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .btn-back { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; margin-bottom: 20px; font-weight: bold; }
 
         .coupons-grid {
             display: grid;
@@ -155,14 +174,16 @@
             text-align: center;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
         }
-        .coupon:hover { background: var(--accent); color: white; }
     </style>
 </head>
 <body>
 
 <div class="bg-decor"></div>
+
+<div id="lightbox" onclick="this.style.display='none'">
+    <img id="lightbox-img" src="">
+</div>
 
 <div id="home" class="section active">
     <h1>Para mi Zarelly ❤️</h1>
@@ -177,32 +198,41 @@
 
     <div class="content-split">
         <div class="mural-grid">
-            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=q8qjjjr96n&view&v=1">
-            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=hnwexkcueh&view&v=1">
-            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=arraeqjj2f&view&v=1">
-            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=gzxx89m4gq&view&v=1">
-            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=9c4hq4meh4&view&v=1">
-            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=b5earfuh93&view&v=1">
-            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=bywzzdjth2&view&v=1">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=q8qjjjr96n&view&v=1" onclick="openImg(this.src)">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=hnwexkcueh&view&v=1" onclick="openImg(this.src)">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=arraeqjj2f&view&v=1" onclick="openImg(this.src)">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=gzxx89m4gq&view&v=1" onclick="openImg(this.src)">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=9c4hq4meh4&view&v=1" onclick="openImg(this.src)">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=b5earfuh93&view&v=1" onclick="openImg(this.src)">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=bywzzdjth2&view&v=1" onclick="openImg(this.src)">
         </div>
 
         <div class="songs-list">
-            <h3 style="margin-top:0; color:var(--accent); font-family:'Dancing Script'; font-size:1.8rem;">Canciones para ti ✨</h3>
+            <h3 style="margin-top:0; color:var(--accent); font-family:'Dancing Script'; font-size:1.8rem;">Nuestras Canciones ✨</h3>
+            
             <a href="https://www.youtube.com/watch?v=GMBSruqyXuI" target="_blank" class="song-card">
                 <img src="https://images.genius.com/1283c70659103e5c947d1012354c462e.1000x1000x1.jpg">
                 <div class="song-info"><b>Pretty</b><span>JVKE</span></div>
             </a>
-            <a href="https://www.youtube.com/watch?v=WunW08Lg_Q0" target="_blank" class="song-card">
-                <img src="https://m.media-amazon.com/images/I/81E6O-E-8LL._UF1000,1000_QL80_.jpg">
-                <div class="song-info"><b>Cómo Te Atreves</b><span>Morat</span></div>
-            </a>
-            <a href="https://www.youtube.com/watch?v=6Xp_f_yYv50" target="_blank" class="song-card">
-                <img src="https://m.media-amazon.com/images/I/71Y07pS5VFL._UF1000,1000_QL80_.jpg">
-                <div class="song-info"><b>Tu Falta de Querer</b><span>Mon Laferte</span></div>
-            </a>
-            <a href="https://www.youtube.com/watch?v=S0T0E9ySshA" target="_blank" class="song-card">
+            <a href="https://www.youtube.com/watch?v=1oeD2m2UQAI" target="_blank" class="song-card">
                 <img src="https://m.media-amazon.com/images/I/71yLzSOnqLL._UF1000,1000_QL80_.jpg">
-                <div class="song-info"><b>Besos en Guerra</b><span>Morat</span></div>
+                <div class="song-info"><b>Besos en Guerra</b><span>Morat & Juanes</span></div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=sD9_l3oDOag" target="_blank" class="song-card">
+                <img src="https://m.media-amazon.com/images/I/71X8u0S8XBL._UF1000,1000_QL80_.jpg">
+                <div class="song-info"><b>No Hay Nadie Más</b><span>Sebastián Yatra</span></div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=OukQDrJ7QRQ" target="_blank" class="song-card">
+                <img src="https://i.scdn.co/image/ab67616d0000b273ce606e16548a31362e128038">
+                <div class="song-info"><b>Aprender a Quererte</b><span>Morat</span></div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=13m9v78uNJk" target="_blank" class="song-card">
+                <img src="https://m.media-amazon.com/images/I/71Y07pS5VFL._UF1000,1000_QL80_.jpg">
+                <div class="song-info"><b>Mi Buen Amor</b><span>Mon Laferte</span></div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=PQlG1gznMBE" target="_blank" class="song-card">
+                <img src="https://i.scdn.co/image/ab67616d0000b273752e5052945d8170e7e7264a">
+                <div class="song-info"><b>Amor Completo</b><span>Mon Laferte</span></div>
             </a>
         </div>
     </div>
@@ -213,7 +243,7 @@
     <div class="card">
         <h3>Nuestro Primer San Valentín</h3>
         <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-            <img src="https://fv5-5.files.fm/thumb_show.php?i=3psjfmwtjm&view&v=1" style="max-width: 300px; border-radius: 15px; object-fit: contain; background: #fff;">
+            <img src="https://fv5-5.files.fm/thumb_show.php?i=3psjfmwtjm&view&v=1" style="max-width: 300px; border-radius: 15px; cursor: zoom-in;" onclick="openImg(this.src)">
             <div style="flex: 1; min-width: 280px; font-family: 'Playfair Display'; font-size: 1.1rem;">
                 Zarelly amor mío, este primer San Valentín a tu lado es el regalo más hermoso que la vida me ha dado. ❤️<br><br>
                 Cada momento contigo se ha convertido en mi recuerdo favorito. Eres mi paz, mi alegría y mi cómplice en todo. Gracias por elegirme cada día y por llenar mi mundo de colores que no sabía que existían. Esto es solo el comienzo de nuestra historia eterna.
@@ -223,12 +253,12 @@
         <button class="btn-dash" style="margin-top:20px;" onclick="document.getElementById('galeria-extra').style.display='grid'">📸 Ver nuestra galería secreta</button>
         
         <div id="galeria-extra" class="polaroid-grid">
-            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=uykkzc8x9q&view&v=1"></div>
-            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=v6dma4x6na&view&v=1"></div>
-            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=5q3q3v98k4&view&v=1"></div>
-            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=zugwrnyuyb&view&v=1"></div>
-            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=cmz2kb49jw&view&v=1"></div>
-            <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=td64h2uhb3&view&v=1"></div>
+            <div class="polaroid" onclick="openImg('https://fv5-5.files.fm/thumb_show.php?i=uykkzc8x9q&view&v=1')"><img src="https://fv5-5.files.fm/thumb_show.php?i=uykkzc8x9q&view&v=1"></div>
+            <div class="polaroid" onclick="openImg('https://fv5-5.files.fm/thumb_show.php?i=v6dma4x6na&view&v=1')"><img src="https://fv5-5.files.fm/thumb_show.php?i=v6dma4x6na&view&v=1"></div>
+            <div class="polaroid" onclick="openImg('https://fv5-5.files.fm/thumb_show.php?i=5q3q3v98k4&view&v=1')"><img src="https://fv5-5.files.fm/thumb_show.php?i=5q3q3v98k4&view&v=1"></div>
+            <div class="polaroid" onclick="openImg('https://fv5-5.files.fm/thumb_show.php?i=zugwrnyuyb&view&v=1')"><img src="https://fv5-5.files.fm/thumb_show.php?i=zugwrnyuyb&view&v=1"></div>
+            <div class="polaroid" onclick="openImg('https://fv5-5.files.fm/thumb_show.php?i=cmz2kb49jw&view&v=1')"><img src="https://fv5-5.files.fm/thumb_show.php?i=cmz2kb49jw&view&v=1"></div>
+            <div class="polaroid" onclick="openImg('https://fv5-5.files.fm/thumb_show.php?i=td64h2uhb3&view&v=1')"><img src="https://fv5-5.files.fm/thumb_show.php?i=td64h2uhb3&view&v=1"></div>
         </div>
     </div>
 </div>
@@ -267,6 +297,11 @@
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
         window.scrollTo(0,0);
+    }
+
+    function openImg(src) {
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox').style.display = 'flex';
     }
 
     function canjear(premio) {
