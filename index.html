@@ -18,7 +18,6 @@
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         .bg-decor {
@@ -32,7 +31,7 @@
         .section {
             display: none;
             padding: 40px 20px;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             animation: fadeIn 0.8s ease-in-out;
         }
@@ -44,26 +43,10 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Mural Principal */
-        .mural-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-            margin-bottom: 30px;
-            padding: 10px;
-        }
-        .mural-item {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border: 3px solid white;
-        }
-
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--accent); text-align: center; margin: 20px 0 5px 0; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--accent); text-align: center; margin-bottom: 5px; }
         .sub { font-size: 1rem; opacity: 0.7; letter-spacing: 2px; text-align: center; margin-bottom: 30px; }
 
+        /* Botones Principales */
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -81,73 +64,73 @@
             font-weight: 700;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-decoration: none;
+            color: var(--text);
+            display: block;
         }
         .btn-dash:hover { transform: translateY(-5px); border-color: var(--accent); color: var(--accent); }
 
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-
-        .btn-back {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        /* Polaroid Gallery */
-        .polaroid-grid {
+        /* Diseño de Dos Columnas (Mural + Canciones) */
+        .content-split {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-            display: none; 
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
         }
-        .polaroid {
-            background: white;
-            padding: 10px 10px 25px 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        .polaroid img { width: 100%; height: 140px; object-fit: cover; }
 
-        .featured-photo {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-            margin-bottom: 30px;
+        @media (max-width: 768px) {
+            .content-split { grid-template-columns: 1fr; }
         }
-        .featured-photo img { width: 100%; max-width: 400px; border-radius: 15px; }
 
-        .coupons-grid {
+        /* Mural Izquierdo */
+        .mural-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
         }
-        .coupon {
-            border: 2px dashed var(--accent);
+        .mural-item {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Lista de Canciones Derecha */
+        .songs-list {
+            background: rgba(255, 255, 255, 0.6);
             padding: 20px;
-            border-radius: 15px;
-            background: #fff0f3;
-            text-align: center;
-            font-weight: bold;
+            border-radius: 20px;
+            border: 1px dashed var(--accent);
         }
+        .song-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            transition: 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .song-card:hover { background: #fff0f3; }
+        .song-card img { width: 50px; height: 50px; border-radius: 8px; }
+        .song-info b { display: block; font-size: 0.9rem; }
+        .song-info span { font-size: 0.8rem; opacity: 0.7; }
 
-        .poem-content {
-            font-family: 'Playfair Display', serif;
-            line-height: 1.8;
-            text-align: center;
-            white-space: pre-line;
-        }
+        /* Otros Estilos */
+        .card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .btn-back { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; margin-bottom: 20px; font-weight: bold; }
+        
+        .featured-photo { display: flex; flex-wrap: wrap; gap: 25px; align-items: center; }
+        .featured-photo img { width: 100%; max-width: 380px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+        
+        .polaroid-grid { display: none; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 20px; }
+        .polaroid { background: white; padding: 8px 8px 20px 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .polaroid img { width: 100%; height: 120px; object-fit: cover; }
     </style>
 </head>
 <body>
@@ -158,19 +141,48 @@
     <h1>Para mi Zarelly ❤️</h1>
     <p class="sub">NUESTRO MUNDO DIGITAL</p>
     
-    <div class="mural-container">
-        <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=9yudjtvjfk&view&v=1">
-        <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=effj7udp4h&view&v=1">
-        <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=rfupbjschk&view&v=1">
-        <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=tgjg7vpqmk&view&v=1">
-        <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=rhyb9js3ed&view&v=1">
-    </div>
-
     <div class="dashboard-grid">
         <div class="btn-dash" onclick="showSection('recuerdos')">📸 Recuerdos</div>
-        <div class="btn-dash" onclick="showSection('playlist')">🎵 Playlist</div>
+        <a href="https://open.spotify.com/playlist/6e1Y7x02D0qCyOJUZcdmKv?si=e13e3b1f50944a03" class="btn-dash" target="_blank">🎵 Nuestra Playlist</a>
         <div class="btn-dash" onclick="showSection('carta')">✍️ Carta</div>
         <div class="btn-dash" onclick="showSection('cupones')">🎁 Cupones</div>
+    </div>
+
+    <div class="content-split">
+        <div class="mural-grid">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=q8qjjjr96n&view&v=1">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=hnwexkcueh&view&v=1">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=arraeqjj2f&view&v=1">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=gzxx89m4gq&view&v=1">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=9c4hq4meh4&view&v=1">
+            <img class="mural-item" src="https://fv5-5.files.fm/thumb_show.php?i=b5earfuh93&view&v=1">
+        </div>
+
+        <div class="songs-list">
+            <h3 style="margin-top:0; color:var(--accent); font-family:'Dancing Script'; font-size:1.8rem;">Canciones para ti ✨</h3>
+            
+            <a href="https://www.youtube.com/watch?v=GMBSruqyXuI" target="_blank" class="song-card">
+                <img src="https://images.genius.com/1283c70659103e5c947d1012354c462e.1000x1000x1.jpg">
+                <div class="song-info"><b>Pretty</b><span>JVKE</span></div>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=WunW08Lg_Q0" target="_blank" class="song-card">
+                <img src="https://m.media-amazon.com/images/I/81E6O-E-8LL._UF1000,1000_QL80_.jpg">
+                <div class="song-info"><b>Cómo Te Atreves</b><span>Morat</span></div>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=6Xp_f_yYv50" target="_blank" class="song-card">
+                <img src="https://m.media-amazon.com/images/I/71Y07pS5VFL._UF1000,1000_QL80_.jpg">
+                <div class="song-info"><b>Tu Falta de Querer</b><span>Mon Laferte</span></div>
+            </a>
+
+            <a href="https://www.youtube.com/watch?v=S0T0E9ySshA" target="_blank" class="song-card">
+                <img src="https://m.media-amazon.com/images/I/71yLzSOnqLL._UF1000,1000_QL80_.jpg">
+                <div class="song-info"><b>Besos en Guerra</b><span>Morat</span></div>
+            </a>
+            
+            <p style="font-size: 0.8rem; font-style: italic; opacity: 0.6; text-align: center;">Toca una para escuchar en YT...</p>
+        </div>
     </div>
 </div>
 
@@ -179,13 +191,14 @@
     <div class="card">
         <h3>Nuestro Primer San Valentín</h3>
         <div class="featured-photo">
-            <img src="https://fv5-5.files.fm/thumb_show.php?i=3psjfmwtjm&view&v=1" alt="Foto Principal">
-            <div style="flex:1; min-width:250px; font-style:italic;">
-                "Zarelly, este primer San Valentín es el inicio de nuestra historia. Eres mi persona favorita."
+            <img src="https://fv5-5.files.fm/thumb_show.php?i=3psjfmwtjm&view&v=1">
+            <div style="flex:1; min-width:280px; font-family:'Playfair Display', serif; font-size:1.1rem; line-height:1.6;">
+                "Zarelly amor mío, este primer San Valentín a tu lado es el regalo más hermoso que la vida me ha dado. ❤️<br><br>
+                Cada momento contigo, desde la risa más pequeña hasta los planes más grandes, se ha convertido en mi recuerdo favorito. Eres mi paz, mi alegría y mi cómplice en todo. Gracias por elegirme cada día y por llenar mi mundo de colores que no sabía que existían. Esto es solo el comienzo de nuestra historia eterna."
             </div>
         </div>
         
-        <button class="btn-dash" onclick="document.getElementById('galeria-extra').style.display='grid'">Ver más fotitos ✨</button>
+        <button class="btn-dash" style="margin-top:20px;" onclick="document.getElementById('galeria-extra').style.display='grid'">📸 Ver nuestra galería secreta</button>
         
         <div id="galeria-extra" class="polaroid-grid">
             <div class="polaroid"><img src="https://fv5-5.files.fm/thumb_show.php?i=uykkzc8x9q&view&v=1"></div>
@@ -198,22 +211,22 @@
     </div>
 </div>
 
-<div id="playlist" class="section">
-    <button class="btn-back" onclick="showSection('home')">← Volver</button>
-    <div class="card">
-        <h3>Nuestra Playlist</h3>
-        <p>Canciones que me recuerdan a ti...</p>
-        </div>
-</div>
-
 <div id="carta" class="section">
     <button class="btn-back" onclick="showSection('home')">← Volver</button>
     <div class="card">
-        <div class="poem-content">
-            Zarelly, mi amor,
-            escribirte esto es solo una parte de lo que siento.
-            Eres mi luz cada mañana.
-            Te amo infinitamente.
+        <h2 style="font-family:'Dancing Script'; text-align:center; color:var(--accent)">Mi Corazón para Ti</h2>
+        <div style="font-family:'Playfair Display'; line-height:1.8; text-align:center; white-space:pre-line;">
+            Zarelly, mi luz y mi guía,
+            en tus ojos encuentro mi paz cada día.
+            No importa el tiempo ni la distancia,
+            siempre me rindo ante tu fragancia.
+
+            Eres el verso que nunca termina,
+            la flor más bella que mi vida ilumina.
+            Prometo cuidarte, amarte y respetarte,
+            y en cada latido, volver a encontrarte.
+
+            Te amo infinitamente,
             - Tu José
         </div>
     </div>
@@ -221,10 +234,14 @@
 
 <div id="cupones" class="section">
     <button class="btn-back" onclick="showSection('home')">← Volver</button>
-    <div class="coupons-grid">
-        <div class="coupon">🎟️ Vale por un Bobocha</div>
-        <div class="coupon">🎟️ Vale por un Beso Infinito</div>
-        <div class="coupon">🎟️ Vale por una Cena</div>
+    <div class="card">
+        <h3 style="text-align:center;">Tus Cupones de Amor</h3>
+        <div class="coupons-grid">
+            <div class="coupon">🎟️ Vale por un Bobocha</div>
+            <div class="coupon">🎟️ Vale por un Beso de Película</div>
+            <div class="coupon">🎟️ Vale por una Cena Especial</div>
+            <div class="coupon">🎟️ Vale por un Abrazo Infinito</div>
+        </div>
     </div>
 </div>
 
